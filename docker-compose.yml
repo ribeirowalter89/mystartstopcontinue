@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    container_name: ssc-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ssc
+      POSTGRES_USER: ssc
+      POSTGRES_PASSWORD: ssc
+    ports:
+      - "5432:5432"
+    volumes:
+      - ssc_postgres_data:/var/lib/postgresql/data
+      - ./sql/postgres-init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+
+volumes:
+  ssc_postgres_data:
